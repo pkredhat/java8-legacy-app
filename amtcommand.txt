@@ -1,0 +1,9 @@
+~/Downloads/mta-7.2.1-cli-darwin-amd64/darwin-mta-cli analyze \
+  --input ~/code/redhat/tmx/legacy-app \
+  --output ~/Downloads/amt-report \
+  --mode source-only \
+  --overwrite \
+  --target eap7 \
+  --target eap8 \
+  --provider java \
+  --enable-default-rulesets
