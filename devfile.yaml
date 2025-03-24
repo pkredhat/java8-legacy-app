@@ -8,8 +8,8 @@ components:
   - name: eap73-runtime
     container:
       image: registry.redhat.io/jboss-eap-7/eap73-openjdk11-openshift-rhel8:7.3.10-2
-      memoryLimit: 2Gi
-      cpuLimit: 1
+      memoryLimit: "2Gi"
+      cpuLimit: "1"
       mountSources: true
       sourceMapping: /projects
       endpoints:
