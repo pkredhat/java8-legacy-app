@@ -20,9 +20,6 @@ components:
         - name: management
           targetPort: 9990
           exposure: internal
-      env:
-        - name: JAVA_OPTS
-          value: "-Xms512m -Xmx1024m"
 
 commands:
   - id: start-eap
