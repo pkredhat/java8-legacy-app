@@ -17,7 +17,6 @@ components:
           targetPort: 8080
           exposure: public
           protocol: http
-          path: /
       env:
         - name: JAVA_OPTS
           value: "-Xms512m -Xmx1024m"
@@ -25,6 +24,7 @@ components:
 commands:
   - id: start-eap
     exec:
+      label: "Run EAP Server"
       component: eap73-runtime
       commandLine: "./standalone.sh -b 0.0.0.0 -c standalone-openshift.xml"
       workingDir: /opt/eap/bin
