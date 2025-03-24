@@ -1,8 +1,9 @@
 schemaVersion: 2.2.0
 metadata:
-  name: eap73-legacy-app
+  name: eap73-dev
   version: 1.0.0
-  description: Devfile for running legacy-app on JBoss EAP 7.3.10
+  displayName: EAP 7.3 Minimal Dev Env
+  description: A lightweight DevSpaces environment for Red Hat JBoss EAP 7.3
 
 components:
   - name: eap73-runtime
@@ -16,36 +17,18 @@ components:
         - name: http
           targetPort: 8080
           exposure: public
-          protocol: http
+        - name: management
+          targetPort: 9990
+          exposure: internal
       env:
         - name: JAVA_OPTS
           value: "-Xms512m -Xmx1024m"
 
 commands:
-  - id: build-app
-    exec:
-      label: "Build legacy-app WAR"
-      component: eap73-runtime
-      commandLine: "mvn clean package"
-      workingDir: /projects
-      group:
-        kind: build
-        isDefault: true
-
-  - id: deploy-app
-    exec:
-      label: "Deploy legacy-app.war"
-      component: eap73-runtime
-      commandLine: "cp /projects/target/legacy-app.war /opt/eap/standalone/deployments/"
-      workingDir: /projects
-      group:
-        kind: build
-
   - id: start-eap
     exec:
-      label: "Start EAP Server"
       component: eap73-runtime
-      commandLine: "./standalone.sh -b 0.0.0.0 -c standalone-openshift.xml"
+      commandLine: ./standalone.sh -b 0.0.0.0
       workingDir: /opt/eap/bin
       group:
         kind: run
