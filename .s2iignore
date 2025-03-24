@@ -1,0 +1,4 @@
+# .s2iignore
+build/
+WebContent/WEB-INF/classes/
+*.class
