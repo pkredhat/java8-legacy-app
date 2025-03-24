@@ -1,0 +1,30 @@
+schemaVersion: 2.2.0
+metadata:
+  name: eap6-dev
+  version: 1.0.0
+  displayName: EAP 6 Minimal Dev Env
+  description: A lightweight DevSpaces environment for Red Hat JBoss EAP 6
+
+components:
+  - name: eap6-runtime
+    container:
+      image: registry.redhat.io/jboss-eap-6/eap64-openshift:1.9-32.1626872997
+      mountSources: true
+      sourceMapping: /projects
+      endpoints:
+        - name: http
+          targetPort: 8080
+          exposure: public
+      env:
+        - name: DISABLE_EMBEDDED_JMS_BROKER
+          value: "true"
+
+# commands:
+#   - id: start-eap
+#     exec:
+#       component: eap74-runtime
+#       commandLine: ./standalone.sh -b 0.0.0.0 -c standalone-openshift.xml
+#       workingDir: /opt/eap/bin
+#       group:
+#         kind: run
+#         isDefault: true

@@ -1,0 +1,3 @@
+<jboss-web>
+    <context-root>/legacy-app</context-root>
+</jboss-web>
