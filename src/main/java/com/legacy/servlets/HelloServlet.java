@@ -20,7 +20,7 @@ public class HelloServlet extends HttpServlet {
             out.println("<body>");
 
             // Hard-coded message (better served by JSP or template engines)
-            String message = "Hiya! (o) from the legacy Servlet!";
+            String message = "Hello TMX!! (o) from the legacy Servlet!";
             out.println("<h1>" + message + "</h1>");
 
             // Manual parameter handling without validation (security issue)
