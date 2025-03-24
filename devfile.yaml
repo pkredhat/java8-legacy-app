@@ -1,0 +1,33 @@
+schemaVersion: 2.2.0
+metadata:
+  name: eap73-dev-env
+  version: 1.0.0
+  description: Devfile for Red Hat JBoss EAP 7.3.10 environment
+
+components:
+  - name: eap73-runtime
+    container:
+      image: registry.redhat.io/jboss-eap-7/eap73-openjdk11-openshift-rhel8:7.3.10-2
+      memoryLimit: 2Gi
+      cpuLimit: 1
+      mountSources: true
+      sourceMapping: /projects
+      endpoints:
+        - name: http
+          targetPort: 8080
+          exposure: public
+          protocol: http
+          path: /
+      env:
+        - name: JAVA_OPTS
+          value: "-Xms512m -Xmx1024m"
+
+commands:
+  - id: start-eap
+    exec:
+      component: eap73-runtime
+      commandLine: "./standalone.sh -b 0.0.0.0 -c standalone-openshift.xml"
+      workingDir: /opt/eap/bin
+      group:
+        kind: run
+        isDefault: true
