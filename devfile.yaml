@@ -1,0 +1,43 @@
+schemaVersion: 2.2.0
+metadata:
+  name: eap6-light
+  displayName: EAP 6 Light Dev Environment
+  description: A minimal development environment using a lightweight JBoss EAP 6 image.
+
+components:
+  - name: eap6-runtime
+    container:
+      image: registry.redhat.io/jboss-eap-6/eap64-openshift:1.9-32.1626872997
+      mountSources: true
+      sourceMapping: /projects
+      #memoryRequest: 1024Mi        # Minimum memory request
+      #memoryLimit: 2048Mi          # Maximum memory allowed
+      #cpuRequest: "500m"           # Minimum 0.5 CPU
+      #cpuLimit: "1"                # Maximum 1 CPU
+      endpoints:
+        - name: http
+          targetPort: 8080
+          exposure: public
+
+commands:
+  - id: deploy-war
+    exec:
+      component: eap6-runtime
+      commandLine: cp /projects/target/*.war /opt/eap/standalone/deployments/ && touch /opt/eap/standalone/deployments/*.dodeploy
+      workingDir: /projects
+      group:
+        kind: build
+        isDefault: true
+
+  - id: run-eap
+    exec:
+      component: eap6-runtime
+      commandLine: /opt/eap/bin/standalone.sh -b 0.0.0.0
+      workingDir: /projects
+      group:
+        kind: run
+        isDefault: true
+
+events:
+  postStart:
+    - deploy-war
