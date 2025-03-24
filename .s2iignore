@@ -1,4 +1,10 @@
-# .s2iignore
-build/
-WebContent/WEB-INF/classes/
+# Ignore precompiled class files and build output
 *.class
+build/
+target/
+out/
+WEB-INF/classes/
+*.war
+*.jar
+.idea/
+.vscode/
